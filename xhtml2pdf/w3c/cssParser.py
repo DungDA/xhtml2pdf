@@ -530,7 +530,7 @@ class CSSParser(object):
             [ [ ruleset | media | page | font_face ] [S|CDO|CDC]* ]*
         ;
         """
-        # FIXME: BYTES to STR 
+        # FIXME: BYTES to STR
         if type(src) == six.binary_type:
             src=six.text_type(src)
         # Get rid of the comments
@@ -782,7 +782,7 @@ class CSSParser(object):
             if src.startswith('@'):
                 # @media, @page, @font-face
                 src, atResults = self._parseAtKeyword(src)
-                if atResults is not None:
+                if atResults is not None and atResults != NotImplemented:
                     stylesheetElements.extend(atResults)
             else:
                 src, nproperties = self._parseDeclarationGroup(src.lstrip(), braces=False)
@@ -1268,4 +1268,3 @@ class CSSParser(object):
             return result.group(group), src[result.end():]
         else:
             return default, src
-
